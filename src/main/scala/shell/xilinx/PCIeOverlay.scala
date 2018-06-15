@@ -36,7 +36,7 @@ class PCIeVC707Overlay(val shell: VC707Shell, val name: String, params: PCIeOver
     val port = topIONode.io.port
     io <> port
     axi.clock := port.axi_aclk_out
-    axi.reset := port.mmcm_lock
+    axi.reset := !port.mmcm_lock
     port.axi_aresetn := ar.reset
     port.axi_ctl_aresetn := ar.reset
 

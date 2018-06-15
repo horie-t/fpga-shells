@@ -34,7 +34,7 @@ class DDRVC707Overlay(val shell: VC707Shell, val name: String, params: DDROverla
     val port = topIONode.io.port
     io <> port
     ui.clock := port.ui_clk
-    ui.reset := port.mmcm_locked
+    ui.reset := !port.mmcm_locked || port.ui_clk_sync_rst
     port.sys_clk_i := sys.clock.asUInt
     port.sys_rst := sys.reset
     port.aresetn := ar.reset
