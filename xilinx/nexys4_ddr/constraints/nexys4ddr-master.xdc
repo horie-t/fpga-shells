@@ -81,7 +81,7 @@ set_property -dict { PACKAGE_PIN N16   IOSTANDARD LVCMOS33 } [get_ports { led1_r
 
 ##Buttons
 
-#set_property -dict { PACKAGE_PIN C12   IOSTANDARD LVCMOS33 } [get_ports { CPU_RESETN }]; #IO_L3P_T0_DQS_AD1P_15 Sch=cpu_resetn
+set_property -dict { PACKAGE_PIN C12   IOSTANDARD LVCMOS33 } [get_ports { ck_rst }]; #IO_L3P_T0_DQS_AD1P_15 Sch=cpu_resetn
 
 #set_property -dict { PACKAGE_PIN N17   IOSTANDARD LVCMOS33 } [get_ports { BTNC }]; #IO_L9P_T1_DQS_14 Sch=btnc
 set_property -dict { PACKAGE_PIN M18   IOSTANDARD LVCMOS33 } [get_ports { btn_0 }]; #IO_L4N_T0_D05_14 Sch=btnu
@@ -261,3 +261,6 @@ set_clock_groups -asynchronous \
   -group [list \
      [get_clocks -of_objects [get_pins ip_mmcm/inst/mmcm_adv_inst/CLKOUT1]] \
      [get_clocks -of_objects [get_pins ip_mmcm/inst/mmcm_adv_inst/CLKOUT2]]]
+
+# ERROR: [Place 30-574] Poor placement for routing between an IO pin and BUFG. If this sub optimal condition is acceptable for this design, you may use the CLOCK_DEDICATED_ROUTE constraint in the .xdc file to demote this message to a WARNING. However, the use of this override is highly discouraged. These examples can be used directly in the .xdc file to override this clock rule.
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets IOBUF_5/O]

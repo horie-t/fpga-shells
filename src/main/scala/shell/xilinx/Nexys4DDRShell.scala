@@ -89,15 +89,6 @@ abstract class Nexys4DDRShell(implicit val p: Parameters) extends RawModule {
   val jd_5         = IO(Analog(1.W))  // TMS
   val jd_6         = IO(Analog(1.W))  // SRST_n
 
-  // ChipKit Digital I/O Pins
-  val ck_io        = IO(Vec(20, Analog(1.W)))
-
-  // ChipKit SPI
-  val ck_miso      = IO(Analog(1.W))
-  val ck_mosi      = IO(Analog(1.W))
-  val ck_ss        = IO(Analog(1.W))
-  val ck_sck       = IO(Analog(1.W))
-
   //-----------------------------------------------------------------------
   // Wire declrations
   //-----------------------------------------------------------------------
