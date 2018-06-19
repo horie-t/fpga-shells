@@ -70,6 +70,8 @@ abstract class Nexys4DDRShell(implicit val p: Parameters) extends RawModule {
   // UART0
   val uart_rxd_out = IO(Analog(1.W))
   val uart_txd_in  = IO(Analog(1.W))
+  val uart_cts     = IO(Analog(1.W))
+  val uart_rts     = IO(Analog(1.W))
 
   // JA (Used for more generic GPIOs)
   val ja_0         = IO(Analog(1.W))
