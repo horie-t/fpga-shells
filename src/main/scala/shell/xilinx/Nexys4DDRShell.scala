@@ -36,6 +36,18 @@ abstract class Nexys4DDRShell(implicit val p: Parameters) extends RawModule {
   val led_1        = IO(Analog(1.W))
   val led_2        = IO(Analog(1.W))
   val led_3        = IO(Analog(1.W))
+  val led_4        = IO(Analog(1.W))
+  val led_5        = IO(Analog(1.W))
+  val led_6        = IO(Analog(1.W))
+  val led_7        = IO(Analog(1.W))
+  val led_8        = IO(Analog(1.W))
+  val led_9        = IO(Analog(1.W))
+  val led_10        = IO(Analog(1.W))
+  val led_11        = IO(Analog(1.W))
+  val led_12        = IO(Analog(1.W))
+  val led_13        = IO(Analog(1.W))
+  val led_14        = IO(Analog(1.W))
+  val led_15        = IO(Analog(1.W))
 
   // RGB LEDs, 3 pins each
   val led0_r       = IO(Analog(1.W))
@@ -45,10 +57,6 @@ abstract class Nexys4DDRShell(implicit val p: Parameters) extends RawModule {
   val led1_r       = IO(Analog(1.W))
   val led1_g       = IO(Analog(1.W))
   val led1_b       = IO(Analog(1.W))
-
-  val led2_r       = IO(Analog(1.W))
-  val led2_g       = IO(Analog(1.W))
-  val led2_b       = IO(Analog(1.W))
 
   // Sliding switches
   val sw_0         = IO(Analog(1.W))
