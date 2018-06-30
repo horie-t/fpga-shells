@@ -49,6 +49,26 @@ abstract class Nexys4DDRShell(implicit val p: Parameters) extends RawModule {
   val led_14        = IO(Analog(1.W))
   val led_15        = IO(Analog(1.W))
 
+  // 7Segment LEDs
+  val seg7_ca        = IO(Analog(1.W))
+  val seg7_cb        = IO(Analog(1.W))
+  val seg7_cc        = IO(Analog(1.W))
+  val seg7_cd        = IO(Analog(1.W))
+  val seg7_ce        = IO(Analog(1.W))
+  val seg7_cf        = IO(Analog(1.W))
+  val seg7_cg        = IO(Analog(1.W))
+
+  val seg7_dp        = IO(Analog(1.W))
+
+  val seg7_an_0      = IO(Analog(1.W))
+  val seg7_an_1      = IO(Analog(1.W))
+  val seg7_an_2      = IO(Analog(1.W))
+  val seg7_an_3      = IO(Analog(1.W))
+  val seg7_an_4      = IO(Analog(1.W))
+  val seg7_an_5      = IO(Analog(1.W))
+  val seg7_an_6      = IO(Analog(1.W))
+  val seg7_an_7      = IO(Analog(1.W))
+
   // RGB LEDs, 3 pins each
   val led0_r       = IO(Analog(1.W))
   val led0_g       = IO(Analog(1.W))
