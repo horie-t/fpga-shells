@@ -30,6 +30,18 @@ class mmcm extends BlackBox {
   }
 }
 
+class mmcm4 extends BlackBox {
+  val io = new Bundle {
+    val clk_in1  = Input(Clock())
+    val clk_out1 = Output(Clock())
+    val clk_out2 = Output(Clock())
+    val clk_out3 = Output(Clock())
+    val clk_out4 = Output(Clock())
+    val resetn   = Input(Bool())
+    val locked   = Output(Bool())
+  }
+}
+
 //-------------------------------------------------------------------------
 // reset_sys
 //-------------------------------------------------------------------------

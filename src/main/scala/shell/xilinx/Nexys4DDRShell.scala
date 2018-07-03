@@ -15,7 +15,7 @@ import sifive.blocks.devices.spi._
 import sifive.blocks.devices.uart._
 import sifive.blocks.devices.pinctrl.{BasePin}
 
-import sifive.fpgashells.ip.xilinx.{IBUFG, IOBUF, PULLUP, mmcm, reset_sys, PowerOnResetFPGAOnly}
+import sifive.fpgashells.ip.xilinx.{IBUFG, IOBUF, PULLUP, mmcm4, reset_sys, PowerOnResetFPGAOnly}
 
 //-------------------------------------------------------------------------
 // Nexys4DDRShell
@@ -101,6 +101,25 @@ abstract class Nexys4DDRShell(implicit val p: Parameters) extends RawModule {
   val uart_cts     = IO(Analog(1.W))
   val uart_rts     = IO(Analog(1.W))
 
+  // VGA Diplay
+  val vga_red_0    = IO(Analog(1.W))
+  val vga_red_1    = IO(Analog(1.W))
+  val vga_red_2    = IO(Analog(1.W))
+  val vga_red_3    = IO(Analog(1.W))
+
+  val vga_green_0  = IO(Analog(1.W))
+  val vga_green_1  = IO(Analog(1.W))
+  val vga_green_2  = IO(Analog(1.W))
+  val vga_green_3  = IO(Analog(1.W))
+
+  val vga_blue_0   = IO(Analog(1.W))
+  val vga_blue_1   = IO(Analog(1.W))
+  val vga_blue_2   = IO(Analog(1.W))
+  val vga_blue_3   = IO(Analog(1.W))
+
+  val vga_hSync    = IO(Analog(1.W))
+  val vga_vSync    = IO(Analog(1.W))
+
   // JA (Used for more generic GPIOs)
   val ja_0         = IO(Analog(1.W))
   val ja_1         = IO(Analog(1.W))
@@ -127,6 +146,7 @@ abstract class Nexys4DDRShell(implicit val p: Parameters) extends RawModule {
   val clock_8MHz     = Wire(Clock())
   val clock_32MHz    = Wire(Clock())
   val clock_65MHz    = Wire(Clock())
+  val clock_25MHz    = Wire(Clock())
 
   val mmcm_locked    = Wire(Bool())
 
@@ -150,12 +170,13 @@ abstract class Nexys4DDRShell(implicit val p: Parameters) extends RawModule {
   //-----------------------------------------------------------------------
   // Mixed-mode clock generator
 
-  val ip_mmcm = Module(new mmcm())
+  val ip_mmcm = Module(new mmcm4())
 
   ip_mmcm.io.clk_in1 := CLK100MHZ
   clock_8MHz         := ip_mmcm.io.clk_out1  // 8.388 MHz = 32.768 kHz * 256
   clock_65MHz        := ip_mmcm.io.clk_out2  // 65 Mhz
   clock_32MHz        := ip_mmcm.io.clk_out3  // 65/2 Mhz
+  clock_25MHz        := ip_mmcm.io.clk_out4  // 25MHz (VGA Px Clock)
   ip_mmcm.io.resetn  := ck_rst
   mmcm_locked        := ip_mmcm.io.locked
 

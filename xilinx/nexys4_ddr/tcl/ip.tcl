@@ -1,17 +1,19 @@
 # See LICENSE for license details.
 
 # クロック生成
-create_ip -vendor xilinx.com -library ip -name clk_wiz -module_name mmcm -dir $ipdir -force
+create_ip -vendor xilinx.com -library ip -name clk_wiz -module_name mmcm4 -dir $ipdir -force
 set_property -dict [list \
 	CONFIG.PRIMITIVE {MMCM} \
 	CONFIG.RESET_TYPE {ACTIVE_LOW} \
 	CONFIG.CLKOUT1_USED {true} \
         CONFIG.CLKOUT2_USED {true} \
         CONFIG.CLKOUT3_USED {true} \
+        CONFIG.CLKOUT4_USED {true} \
 	CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {8.388} \
         CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {65.000} \
         CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {32.500} \
-	] [get_ips mmcm]
+        CONFIG.CLKOUT4_REQUESTED_OUT_FREQ {25.175} \
+	] [get_ips mmcm4]
 
 # リセット信号
 create_ip -vendor xilinx.com -library ip -name proc_sys_reset -module_name reset_sys -dir $ipdir -force
@@ -50,15 +52,15 @@ set_property -dict [list \
 	CONFIG.Memory_Type {True_Dual_Port_RAM} \
 	CONFIG.Use_Byte_Write_Enable {true} \
 	CONFIG.Byte_Size {8} \
-	CONFIG.Write_Width_A {8} \
-	CONFIG.Write_Depth_A {524288} \
-	CONFIG.Read_Width_A {8} \
-	CONFIG.Write_Width_B {32} \
-	CONFIG.Read_Width_B {32} \
+	CONFIG.Write_Width_A {32} \
+	CONFIG.Write_Depth_A {131072} \
+	CONFIG.Read_Width_A {32} \
+	CONFIG.Write_Width_B {8} \
+	CONFIG.Read_Width_B {8} \
 	CONFIG.Enable_B {Use_ENB_Pin} \
 	CONFIG.Register_PortA_Output_of_Memory_Primitives {false} \
 	CONFIG.Register_PortB_Output_of_Memory_Primitives {false} \
 	CONFIG.Port_B_Clock {100} \
 	CONFIG.Port_B_Write_Rate {50} \
-	CONFIG.Port_B_Enable_Rate {100}\
+	CONFIG.Port_B_Enable_Rate {100} \
 	] [get_ips Vram]
