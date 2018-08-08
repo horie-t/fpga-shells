@@ -203,6 +203,21 @@ class Series7MMCM(c : PLLParameters) extends BlackBox with PLL {
 }
 
 //-------------------------------------------------------------------------
+// nexys4ddr_reset
+//-------------------------------------------------------------------------
+
+class nexys4ddr_reset() extends BlackBox
+{
+  val io = new Bundle{
+    val areset = Bool(INPUT)
+    val clock1 = Clock(INPUT)
+    val reset1 = Bool(OUTPUT)
+    val clock2 = Clock(INPUT)
+    val reset2 = Bool(OUTPUT)
+  }
+}
+
+//-------------------------------------------------------------------------
 // vc707reset
 //-------------------------------------------------------------------------
 
