@@ -22,7 +22,7 @@ import sifive.fpgashells.clocks._
 // Nexys4DDRShell
 //-------------------------------------------------------------------------
 
-trait HasDDR3 { this: U500Nexys4DDRShell =>
+trait HasDDR2 { this: U500Nexys4DDRShell =>
   
   require(!p.lift(MemoryXilinxDDRKey).isEmpty)
   val ddr = IO(new XilinxNexys4DDRMIGPads(p(MemoryXilinxDDRKey)))
@@ -46,13 +46,11 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
   // Interface
   //-----------------------------------------------------------------------
 
-  // TODO:horie change 100MHz
-  // 200Mhz differential sysclk
-  val sys_diff_clock_clk_n = IO(Input(Bool()))
-  val sys_diff_clock_clk_p = IO(Input(Bool()))
+  // clock
+  val clock = IO(Input(Clock()))
 
-  // active high reset
-  val reset                = IO(Input(Bool()))
+  // active low reset
+  val resetn               = IO(Input(Bool()))
 
   // LED
   val led                  = IO(Vec(8, Output(Bool())))
@@ -121,23 +119,14 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
   val mmcm_lock_pcie  = Wire(Bool())
 
   //-----------------------------------------------------------------------
-  // Differential clock
-  //-----------------------------------------------------------------------
-
-  // TODO:horie change single end clock
-  val sys_clk_ibufds = Module(new IBUFDS)
-  sys_clk_ibufds.io.I  := sys_diff_clock_clk_p
-  sys_clk_ibufds.io.IB := sys_diff_clock_clk_n
-
-  //-----------------------------------------------------------------------
   // System clock and reset
   //-----------------------------------------------------------------------
 
   // Clock that drives the clock generator and the MIG
-  sys_clock := sys_clk_ibufds.io.O.asClock
+  sys_clock := clock
 
   // Allow the debug module to reset everything. Resets the MIG
-  sys_reset := reset | dut_ndreset
+  sys_reset := ~resetn | dut_ndreset
 
   //-----------------------------------------------------------------------
   // Clock Generator
@@ -146,7 +135,7 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
   //25MHz and multiples
   val nexys4ddr_sys_clock_mmcm0 = Module(new Series7MMCM(PLLParameters(
     "nexys4ddr_sys_clock_mmcm2",
-    InClockParameters(200, 50), // TODO:horie change clock 100MHz
+    InClockParameters(100, 50),
     Seq(
       OutClockParameters(12.5),
       OutClockParameters(25),
@@ -157,7 +146,7 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
       OutClockParameters(100, 180)))))
   
   nexys4ddr_sys_clock_mmcm0.io.clk_in1 := sys_clock.asUInt
-  nexys4ddr_sys_clock_mmcm0.io.reset   := reset
+  nexys4ddr_sys_clock_mmcm0.io.reset   := ~resetn
   val nexys4ddr_sys_clock_mmcm0_locked = nexys4ddr_sys_clock_mmcm0.io.locked
   val Seq(clk12_5, clk25, clk37_5, clk50, clk100, clk150, clk100_180) = nexys4ddr_sys_clock_mmcm0.getClocks
 
@@ -165,13 +154,13 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
   //val vc707_sys_clock_mmcm1 = Module(new vc707_sys_clock_mmcm1)
   val nexys4ddr_sys_clock_mmcm1 = Module(new Series7MMCM(PLLParameters(
     "nexys4ddr_sys_clock_mmcm1",
-    InClockParameters(200, 50), // TODO:horie change 100MHz
+    InClockParameters(100, 50),
     Seq(
       OutClockParameters(32.5),
       OutClockParameters(65, 180)))))
   
   nexys4ddr_sys_clock_mmcm1.io.clk_in1 := sys_clock.asUInt
-  nexys4ddr_sys_clock_mmcm1.io.reset   := reset
+  nexys4ddr_sys_clock_mmcm1.io.reset   := ~resetn
   val clk32_5              = nexys4ddr_sys_clock_mmcm1.io.clk_out1
   val clk65                = nexys4ddr_sys_clock_mmcm1.io.clk_out2
   val nexys4ddr_sys_clock_mmcm1_locked = nexys4ddr_sys_clock_mmcm1.io.locked
@@ -196,7 +185,7 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
   safe_reset.io.clock2 := dut_clock
   dut_reset            := safe_reset.io.reset2
 
-  //overrided in connectMIG and connect PCIe
+  //overrided in connectMIG
   //provide defaults to allow above reset sequencing logic to work without both
   mig_clock            := dut_clock
   mig_mmcm_locked      := UInt("b1")

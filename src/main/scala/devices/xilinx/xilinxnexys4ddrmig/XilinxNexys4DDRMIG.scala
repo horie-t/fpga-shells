@@ -29,7 +29,7 @@ class XilinxNexys4DDRMIGIsland(c : XilinxNexys4DDRMIGParams)(implicit p: Paramet
   val offset = ranges.head.base
   val depth = ranges.head.size
   val crossing = AsynchronousCrossing(8)
-  require((depth<=0x100000000L),"nexys4ddrmig supports upto 4GB depth configuraton")
+  require((depth==0x8000000L),"nexys4ddrmig supports 128MiB depth configuraton")
   
   val device = new MemoryDevice
   val node = AXI4SlaveNode(Seq(AXI4SlavePortParameters(
@@ -57,23 +57,22 @@ class XilinxNexys4DDRMIGIsland(c : XilinxNexys4DDRMIGParams)(implicit p: Paramet
     //pins to top level
 
     //inouts
-    attach(io.port.ddr3_dq,blackbox.io.ddr3_dq)
-    attach(io.port.ddr3_dqs_n,blackbox.io.ddr3_dqs_n)
-    attach(io.port.ddr3_dqs_p,blackbox.io.ddr3_dqs_p)
+    attach(io.port.ddr2_dq,blackbox.io.ddr2_dq)
+    attach(io.port.ddr2_dqs_n,blackbox.io.ddr2_dqs_n)
+    attach(io.port.ddr2_dqs_p,blackbox.io.ddr2_dqs_p)
 
     //outputs
-    io.port.ddr3_addr         := blackbox.io.ddr3_addr
-    io.port.ddr3_ba           := blackbox.io.ddr3_ba
-    io.port.ddr3_ras_n        := blackbox.io.ddr3_ras_n
-    io.port.ddr3_cas_n        := blackbox.io.ddr3_cas_n
-    io.port.ddr3_we_n         := blackbox.io.ddr3_we_n
-    io.port.ddr3_reset_n      := blackbox.io.ddr3_reset_n
-    io.port.ddr3_ck_p         := blackbox.io.ddr3_ck_p
-    io.port.ddr3_ck_n         := blackbox.io.ddr3_ck_n
-    io.port.ddr3_cke          := blackbox.io.ddr3_cke
-    io.port.ddr3_cs_n         := blackbox.io.ddr3_cs_n
-    io.port.ddr3_dm           := blackbox.io.ddr3_dm
-    io.port.ddr3_odt          := blackbox.io.ddr3_odt
+    io.port.ddr2_addr         := blackbox.io.ddr2_addr
+    io.port.ddr2_ba           := blackbox.io.ddr2_ba
+    io.port.ddr2_ras_n        := blackbox.io.ddr2_ras_n
+    io.port.ddr2_cas_n        := blackbox.io.ddr2_cas_n
+    io.port.ddr2_we_n         := blackbox.io.ddr2_we_n
+    io.port.ddr2_ck_p         := blackbox.io.ddr2_ck_p
+    io.port.ddr2_ck_n         := blackbox.io.ddr2_ck_n
+    io.port.ddr2_cke          := blackbox.io.ddr2_cke
+    io.port.ddr2_cs_n         := blackbox.io.ddr2_cs_n
+    io.port.ddr2_dm           := blackbox.io.ddr2_dm
+    io.port.ddr2_odt          := blackbox.io.ddr2_odt
 
     //inputs
     //NO_BUFFER clock
