@@ -18,7 +18,7 @@ trait HasMemoryXilinxNexys4DDRMIG { this: BaseSubsystem =>
 }
 
 trait HasMemoryXilinxNexys4DDRMIGBundle {
-  val xilinxvc707mig: XilinxNexys4DDRMIGIO
+  val xilinxnexys4ddrmig: XilinxNexys4DDRMIGIO
   def connectXilinxNexys4DDRMIGToPads(pads: XilinxNexys4DDRMIGPads) {
     pads <> xilinxnexys4ddrmig
   }

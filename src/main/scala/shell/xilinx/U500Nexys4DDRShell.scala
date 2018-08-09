@@ -14,8 +14,8 @@ import sifive.blocks.devices.spi._
 import sifive.blocks.devices.uart._
 import sifive.blocks.devices.chiplink._
 
-import sifive.fpgashells.devices.xilinx.xilinxvc707mig._
-import sifive.fpgashells.ip.xilinx.{IBUFDS, PowerOnResetFPGAOnly, sdio_spi_bridge, Series7MMCM, nexys4ddrreset}
+import sifive.fpgashells.devices.xilinx.xilinxnexys4ddrmig._
+import sifive.fpgashells.ip.xilinx.{IBUFDS, PowerOnResetFPGAOnly, sdio_spi_bridge, Series7MMCM, nexys4ddr_reset}
 
 import sifive.fpgashells.clocks._
 //-------------------------------------------------------------------------
@@ -36,7 +36,7 @@ trait HasDDR3 { this: U500Nexys4DDRShell =>
     dut.xilinxnexys4ddrmig.aresetn   := mig_resetn
     dut.xilinxnexys4ddrmig.sys_rst   := sys_reset
 
-    ddr <> xilinxnexys4ddrmig
+    ddr <> dut.xilinxnexys4ddrmig
   }
 }
 
