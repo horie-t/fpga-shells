@@ -13,7 +13,7 @@ module nexys4ddr_reset(
   input  wire clock1,
   output wire reset1,
   input  wire clock2,
-  output wire reset2,
+  output wire reset2
 );
   sifive_reset_hold hold_clock0(areset, clock1, reset1);
   sifive_reset_sync sync_clock2(reset1, clock2, reset2);

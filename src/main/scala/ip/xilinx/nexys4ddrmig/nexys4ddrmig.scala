@@ -100,7 +100,7 @@ class nexys4ddrmig(depth : BigInt)(implicit val p:Parameters) extends BlackBox
     val s_axi_rlast           = Bool(OUTPUT)
     val s_axi_rvalid          = Bool(OUTPUT)
     //misc
-    val device_temp           = Bits(OUTPUT,12)
+//    val device_temp           = Bits(OUTPUT,12)
   }
 
   val nexys4ddrmig128mbprj = """ {<?xml version='1.0' encoding='UTF-8'?>

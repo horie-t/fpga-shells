@@ -29,7 +29,7 @@ trait HasDDR2 { this: U500Nexys4DDRShell =>
   
   def connectMIG(dut: HasMemoryXilinxNexys4DDRMIGModuleImp): Unit = {
     // Clock & Reset
-    dut.xilinxnexys4ddrmig.sys_clk_i := sys_clock.asUInt
+    dut.xilinxnexys4ddrmig.sys_clk_i := clk200.asUInt
     mig_clock                    := dut.xilinxnexys4ddrmig.ui_clk
     mig_sys_reset                := dut.xilinxnexys4ddrmig.ui_clk_sync_rst
     mig_mmcm_locked              := dut.xilinxnexys4ddrmig.mmcm_locked
@@ -141,14 +141,14 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
       OutClockParameters(25),
       OutClockParameters(37.5),
       OutClockParameters(50),
-      OutClockParameters(100),
+      OutClockParameters(200),
       OutClockParameters(150.00),
       OutClockParameters(100, 180)))))
   
   nexys4ddr_sys_clock_mmcm0.io.clk_in1 := sys_clock.asUInt
   nexys4ddr_sys_clock_mmcm0.io.reset   := ~resetn
   val nexys4ddr_sys_clock_mmcm0_locked = nexys4ddr_sys_clock_mmcm0.io.locked
-  val Seq(clk12_5, clk25, clk37_5, clk50, clk100, clk150, clk100_180) = nexys4ddr_sys_clock_mmcm0.getClocks
+  val Seq(clk12_5, clk25, clk37_5, clk50, clk200, clk150, clk100_180) = nexys4ddr_sys_clock_mmcm0.getClocks
 
   //65MHz and multiples
   //val vc707_sys_clock_mmcm1 = Module(new vc707_sys_clock_mmcm1)

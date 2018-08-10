@@ -252,14 +252,5 @@ set_property -dict { PACKAGE_PIN E5    IOSTANDARD LVCMOS33 } [get_ports { uart_r
 #set_property -dict { PACKAGE_PIN L13   IOSTANDARD LVCMOS33 } [get_ports { QSPI_CSN }]; #IO_L6P_T0_FCS_B_14 Sch=qspi_csn
 
 
-
-
-
-
-
-
-
-
-
-
-
+set_property CLOCK_DEDICATED_ROUTE BACKBONE [get_nets clock_IBUF]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets clock_IBUF]
