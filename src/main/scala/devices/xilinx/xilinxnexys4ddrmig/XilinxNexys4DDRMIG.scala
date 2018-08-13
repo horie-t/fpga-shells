@@ -152,7 +152,7 @@ class XilinxNexys4DDRMIG(c : XilinxNexys4DDRMIGParams)(implicit p: Parameters) e
 
   val buffer  = LazyModule(new TLBuffer)
   val toaxi4  = LazyModule(new TLToAXI4(adapterName = Some("mem"), stripBits = 1))
-  val indexer = LazyModule(new AXI4IdIndexer(idBits = 4))
+  val indexer = LazyModule(new AXI4IdIndexer(idBits = 1))
   val deint   = LazyModule(new AXI4Deinterleaver(p(CacheBlockBytes)))
   val yank    = LazyModule(new AXI4UserYanker)
   val island  = LazyModule(new XilinxNexys4DDRMIGIsland(c))

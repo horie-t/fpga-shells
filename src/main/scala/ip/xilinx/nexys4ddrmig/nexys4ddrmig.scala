@@ -58,8 +58,8 @@ class nexys4ddrmig(depth : BigInt)(implicit val p:Parameters) extends BlackBox
     val app_zq_ack            = Bool(OUTPUT)
     //axi_s
     //slave interface write address ports
-    val s_axi_awid            = Bits(INPUT,4)
-    val s_axi_awaddr          = Bits(INPUT,32)
+    val s_axi_awid            = Bits(INPUT,1)
+    val s_axi_awaddr          = Bits(INPUT,27)
     val s_axi_awlen           = Bits(INPUT,8)
     val s_axi_awsize          = Bits(INPUT,3)
     val s_axi_awburst         = Bits(INPUT,2)
@@ -77,12 +77,12 @@ class nexys4ddrmig(depth : BigInt)(implicit val p:Parameters) extends BlackBox
     val s_axi_wready          = Bool(OUTPUT)
     //slave interface write response ports
     val s_axi_bready          = Bool(INPUT)
-    val s_axi_bid             = Bits(OUTPUT,4)
+    val s_axi_bid             = Bits(OUTPUT,1)
     val s_axi_bresp           = Bits(OUTPUT,2)
     val s_axi_bvalid          = Bool(OUTPUT)
     //slave interface read address ports
-    val s_axi_arid            = Bits(INPUT,4)
-    val s_axi_araddr          = Bits(INPUT,32)
+    val s_axi_arid            = Bits(INPUT,1)
+    val s_axi_araddr          = Bits(INPUT,27)
     val s_axi_arlen           = Bits(INPUT,8)
     val s_axi_arsize          = Bits(INPUT,3)
     val s_axi_arburst         = Bits(INPUT,2)
@@ -94,7 +94,7 @@ class nexys4ddrmig(depth : BigInt)(implicit val p:Parameters) extends BlackBox
     val s_axi_arready         = Bool(OUTPUT)
     //slave interface read data ports
     val s_axi_rready          = Bool(INPUT)
-    val s_axi_rid             = Bits(OUTPUT,4)
+    val s_axi_rid             = Bits(OUTPUT,1)
     val s_axi_rdata           = Bits(OUTPUT,64)
     val s_axi_rresp           = Bits(OUTPUT,2)
     val s_axi_rlast           = Bool(OUTPUT)
