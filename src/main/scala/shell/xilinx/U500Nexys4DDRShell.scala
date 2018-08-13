@@ -94,8 +94,6 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
   val dut_reset       = Wire(Bool())
   val dut_resetn      = Wire(Bool())
 
-  val dut_ndreset     = Wire(Bool())
-
   val sd_spi_sck      = Wire(Bool())
   val sd_spi_cs       = Wire(Bool())
   val sd_spi_dq_i     = Wire(Vec(4, Bool()))
@@ -126,7 +124,7 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
   sys_clock := clock
 
   // Allow the debug module to reset everything. Resets the MIG
-  sys_reset := ~resetn | dut_ndreset
+  sys_reset := resetn
 
   //-----------------------------------------------------------------------
   // Clock Generator
