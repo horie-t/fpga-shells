@@ -62,6 +62,7 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
   val uart_ctsn            = IO(Input(Bool()))
 
   // SDIO
+  val sd_reset             = IO(Output(Bool()))
   val sdio_clk             = IO(Output(Bool()))
   val sdio_cmd             = IO(Analog(1.W))
   val sdio_dat             = IO(Analog(4.W))
@@ -207,6 +208,8 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
   // SPI
   //-----------------------------------------------------------------------
 
+  sd_reset := false.B
+
   def connectSPI(dut: HasPeripherySPIModuleImp): Unit = {
     // SPI
     sd_spi_sck := dut.spi(0).sck
@@ -230,13 +233,19 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
     // SDIO
     attach(sdio_dat, ip_sdio_spi.io.sd_dat)
     attach(sdio_cmd, ip_sdio_spi.io.sd_cmd)
-    sdio_clk := ip_sdio_spi.io.spi_sck
+    sdio_clk := ip_sdio_spi.io.sd_sck
 
     // SPI
     ip_sdio_spi.io.spi_sck  := sd_spi_sck
     ip_sdio_spi.io.spi_cs   := sd_spi_cs
     sd_spi_dq_i             := ip_sdio_spi.io.spi_dq_i.toBools
     ip_sdio_spi.io.spi_dq_o := sd_spi_dq_o.asUInt
+
+    // Duplicate to LED
+    led(0) := ip_sdio_spi.io.sd_sck
+    led(1) := sd_spi_dq_o(0)
+    led(2) := sd_spi_cs
+    led(3) := sd_spi_dq_i(0)
   }
 
 }

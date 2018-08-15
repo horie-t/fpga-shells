@@ -174,7 +174,7 @@ set_property -dict { PACKAGE_PIN P18   IOSTANDARD LVCMOS33 } [get_ports { btn_3 
 
 ##Micro SD Connector
 
-#set_property -dict { PACKAGE_PIN E2    IOSTANDARD LVCMOS33 } [get_ports { SD_RESET }]; #IO_L14P_T2_SRCC_35 Sch=sd_reset
+set_property -dict { PACKAGE_PIN E2    IOSTANDARD LVCMOS33 } [get_ports { sd_reset }]; #IO_L14P_T2_SRCC_35 Sch=sd_reset
 #set_property -dict { PACKAGE_PIN A1    IOSTANDARD LVCMOS33 } [get_ports { SD_CD }]; #IO_L9N_T1_DQS_AD7N_35 Sch=sd_cd
 set_property -dict { PACKAGE_PIN B1    IOSTANDARD LVCMOS33 } [get_ports { sdio_clk }]; #IO_L9P_T1_DQS_AD7P_35 Sch=sd_sck
 set_property -dict { PACKAGE_PIN C1    IOSTANDARD LVCMOS33 } [get_ports { sdio_cmd }]; #IO_L16N_T2_35 Sch=sd_cmd

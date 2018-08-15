@@ -13,7 +13,7 @@ module sdio_spi_bridge (
   input  wire       spi_sck,
   input  wire [3:0] spi_dq_o,
   output wire [3:0] spi_dq_i,
-  output wire       spi_cs
+  input wire       spi_cs
 );
 
   wire mosi, miso;
