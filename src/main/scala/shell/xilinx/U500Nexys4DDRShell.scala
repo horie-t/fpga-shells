@@ -240,12 +240,6 @@ abstract class U500Nexys4DDRShell(implicit val p: Parameters) extends RawModule 
     ip_sdio_spi.io.spi_cs   := sd_spi_cs
     sd_spi_dq_i             := ip_sdio_spi.io.spi_dq_i.toBools
     ip_sdio_spi.io.spi_dq_o := sd_spi_dq_o.asUInt
-
-    // Duplicate to LED
-    led(0) := ip_sdio_spi.io.sd_sck
-    led(1) := sd_spi_dq_o(0)
-    led(2) := sd_spi_cs
-    led(3) := sd_spi_dq_i(0)
   }
 
 }
